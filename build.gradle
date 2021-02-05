@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'com.db'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'Camunda DMN POC',
+                'Implementation-Version': '$version'
+        )
+    }
+}
+
+ext {
+    dmnXlsxConverterVersion = '0.2.0'
+    lombokVersion = "1.18.12"
+    jaxbApiVersion = "2.3.2"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation("org.camunda.bpm.extension.dmn:dmn-xlsx-converter:$dmnXlsxConverterVersion") {
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'log4j', module: 'log4j'
+    }
+    implementation "jakarta.xml.bind:jakarta.xml.bind-api:$jaxbApiVersion"
+    implementation "org.glassfish.jaxb:jaxb-runtime:$jaxbApiVersion"
+
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+}
