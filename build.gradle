@@ -26,6 +26,7 @@ ext {
     dmnXlsxConverterVersion = '0.2.0'
     lombokVersion = "1.18.12"
     jaxbApiVersion = "2.3.2"
+    camundaVersion = "7.15.0-alpha2"
 }
 
 dependencies {
@@ -36,6 +37,8 @@ dependencies {
     }
     implementation "jakarta.xml.bind:jakarta.xml.bind-api:$jaxbApiVersion"
     implementation "org.glassfish.jaxb:jaxb-runtime:$jaxbApiVersion"
+
+    implementation "org.camunda.bpm.dmn:camunda-engine-dmn:$camundaVersion"
 
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
