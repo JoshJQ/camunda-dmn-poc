@@ -2,14 +2,10 @@ plugins {
     id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    id 'org.ajoberstar.grgit' version '1.7.2'
-    id 'org.ajoberstar.release-opinion' version '1.7.2'
+    id 'nebula.release' version '15.2.0'
 }
 
-import org.ajoberstar.gradle.git.release.opinion.Strategies
-
 group 'com.db'
-version '0.0.1-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
@@ -23,14 +19,6 @@ bootJar {
                 'Implementation-Title': 'Camunda DMN POC',
                 'Implementation-Version': '$version'
         )
-    }
-}
-
-release {
-    versionStrategy Strategies.FINAL
-    defaultVersionStrategy Strategies.SNAPSHOT
-    tagStrategy {
-        generateMessage = { version -> "Version $project.version" }
     }
 }
 
