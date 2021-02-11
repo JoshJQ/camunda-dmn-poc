@@ -17,7 +17,7 @@ bootJar {
     manifest {
         attributes(
                 'Implementation-Title': 'Camunda DMN POC',
-                'Implementation-Version': '$version'
+                'Implementation-Version': archiveVersion
         )
     }
 }
