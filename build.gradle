@@ -1,8 +1,10 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
-    id 'java'
-    id 'nebula.release' version '15.2.0'
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id 'nebula.release' version '15.2.0'
+	id "com.diffplug.spotless" version "5.10.2"
+	id "name.remal.sonarlint" version "1.2.2"
 }
 
 group 'com.db'
@@ -10,36 +12,51 @@ group 'com.db'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 bootJar {
-    manifest {
-        attributes(
-                'Implementation-Title': 'Camunda DMN POC',
-                'Implementation-Version': archiveVersion
-        )
-    }
+	manifest {
+		attributes(
+				'Implementation-Title': 'Camunda DMN POC',
+				'Implementation-Version': archiveVersion
+		)
+	}
+}
+
+spotless {
+	format 'misc', {
+		target '*.gradle', '.gitignore'
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+	java {
+		importOrder()
+		removeUnusedImports()
+		googleJavaFormat('1.8').aosp()
+	}
 }
 
 ext {
-    dmnXlsxConverterVersion = '0.2.0'
-    lombokVersion = "1.18.12"
-    jaxbApiVersion = "2.3.2"
-    camundaVersion = "7.15.0-alpha2"
+	dmnXlsxConverterVersion = '0.2.0'
+	lombokVersion = "1.18.12"
+	jaxbApiVersion = "2.3.2"
+	camundaVersion = "7.15.0-alpha2"
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation("org.camunda.bpm.extension.dmn:dmn-xlsx-converter:$dmnXlsxConverterVersion") {
-        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
-        exclude group: 'log4j', module: 'log4j'
-    }
-    implementation "jakarta.xml.bind:jakarta.xml.bind-api:$jaxbApiVersion"
-    implementation "org.glassfish.jaxb:jaxb-runtime:$jaxbApiVersion"
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation("org.camunda.bpm.extension.dmn:dmn-xlsx-converter:$dmnXlsxConverterVersion") {
+		exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+		exclude group: 'log4j', module: 'log4j'
+		exclude group: 'org.slf4j', module: 'jcl-over-slf4j'
+	}
+	implementation "jakarta.xml.bind:jakarta.xml.bind-api:$jaxbApiVersion"
+	implementation "org.glassfish.jaxb:jaxb-runtime:$jaxbApiVersion"
 
-    implementation "org.camunda.bpm.dmn:camunda-engine-dmn:$camundaVersion"
+	implementation "org.camunda.bpm.dmn:camunda-engine-dmn:$camundaVersion"
 
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+	compileOnly "org.projectlombok:lombok:$lombokVersion"
+	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }

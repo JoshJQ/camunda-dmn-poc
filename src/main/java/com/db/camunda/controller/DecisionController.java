@@ -21,10 +21,10 @@ public class DecisionController {
     }
 
     @GetMapping(value = "/quarter/{month}")
-    public ResponseEntity<BasicResponseMessage> decideQuarter(@PathVariable("month") Integer month) {
+    public ResponseEntity<BasicResponseMessage> decideQuarter(
+            @PathVariable("month") Integer month) {
         Long quarter = dmnService.decideQuarter(month);
         return ResponseEntity.ok(
-                new BasicResponseMessage("Month " + month + " is in quarter " + quarter)
-        );
+                new BasicResponseMessage("Month " + month + " is in quarter " + quarter));
     }
 }
