@@ -3,8 +3,8 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 	id 'nebula.release' version '15.2.0'
-	id "com.diffplug.spotless" version "5.10.2"
-	id "name.remal.sonarlint" version "1.2.2"
+	id 'com.diffplug.spotless' version '5.10.2'
+	id 'name.remal.sonarlint' version '1.2.2'
 }
 
 group 'com.db'
@@ -40,9 +40,9 @@ spotless {
 
 ext {
 	dmnXlsxConverterVersion = '0.2.0'
-	lombokVersion = "1.18.12"
-	jaxbApiVersion = "2.3.2"
-	camundaVersion = "7.15.0-alpha2"
+	lombokVersion = '1.18.12'
+	jaxbApiVersion = '2.3.2'
+	camundaVersion = '7.15.0-alpha2'
 }
 
 dependencies {
