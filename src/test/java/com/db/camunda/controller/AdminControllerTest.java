@@ -2,6 +2,7 @@ package com.db.camunda.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.db.camunda.entity.DmnTemplate;
 import com.db.camunda.service.DmnTemplateService;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,8 @@ class AdminControllerTest {
     @Test
     void importDecisionRules() throws IOException {
         MultipartFile file = new MockMultipartFile("testFile", new byte[1]);
-        Mockito.doNothing().when(dmnTemplateService).convertDmnTemplate(Mockito.any());
+        Mockito.when(dmnTemplateService.convertDmnTemplate(Mockito.any()))
+                .thenReturn(new DmnTemplate());
         assertEquals(HttpStatus.OK, adminController.importDecisionRules(file).getStatusCode());
     }
 }
