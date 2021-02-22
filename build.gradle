@@ -5,6 +5,7 @@ plugins {
     id 'nebula.release' version '15.2.0'
     id 'com.diffplug.spotless' version '5.10.2'
     id 'name.remal.sonarlint' version '1.2.2'
+    id 'name.remal.test-source-sets' version '1.1.6'
 }
 
 group 'com.db'
@@ -15,13 +16,18 @@ repositories {
     mavenCentral()
 }
 
-sourceSets {
-    integration {
-        java.srcDir "$projectDir/src/integration/java"
-        resources.srcDir "$projectDir/src/integration/resources"
-        compileClasspath += main.output + test.output
-        runtimeClasspath += main.output + test.output
+bootJar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'Camunda DMN POC',
+                'Implementation-Version': archiveVersion
+        )
     }
+}
+
+testSourceSets {
+    test
+    integration
 }
 
 configurations {
@@ -34,12 +40,11 @@ task integrationTest(type: Test) {
     classpath = sourceSets.integration.runtimeClasspath
 }
 
-bootJar {
-    manifest {
-        attributes(
-                'Implementation-Title': 'Camunda DMN POC',
-                'Implementation-Version': archiveVersion
-        )
+check.dependsOn integrationTest
+
+sonarlint {
+    excludes {
+        message 'java:S5960'
     }
 }
 
