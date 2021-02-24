@@ -28,11 +28,15 @@ bootJar {
 testSourceSets {
     test
     integration
+    e2e
 }
 
 configurations {
     integrationImplementation.extendsFrom testImplementation
     integrationRuntime.extendsFrom testRuntime
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
 }
 
 task integrationTest(type: Test) {
@@ -42,9 +46,21 @@ task integrationTest(type: Test) {
 
 check.dependsOn integrationTest
 
+task cucumber() {
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.e2e.output
+            args = ['--plugin', 'pretty', '--plugin', 'de.monochromata.cucumber.report.PrettyReports:build/test-results/',
+                    '--glue', 'com.db.camunda.e2e.steps', 'src/e2e/resources']
+        }
+    }
+}
+
 sonarlint {
     excludes {
         message 'java:S5960'
+        message 'java:S1186'
     }
 }
 
@@ -68,6 +84,10 @@ ext {
     jaxbApiVersion = '2.3.2'
     camundaVersion = '7.15.0-alpha2'
     h2Version = '1.4.200'
+    cucumberVersion = '6.8.1'
+    cucumberReportVersion = '4.0.96'
+    restAssuredVersion = '4.2.0'
+    jaxbOsgiVersion = '3.0.0'
 }
 
 dependencies {
@@ -92,6 +112,15 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation "io.cucumber:cucumber-java:$cucumberVersion"
+    testImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
+    testImplementation("de.monochromata.cucumber:reporting-plugin:$cucumberReportVersion") {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
+    testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
+    testImplementation "io.rest-assured:json-path:$restAssuredVersion"
+    testImplementation "io.rest-assured:xml-path:$restAssuredVersion"
+    testImplementation "com.sun.xml.bind:jaxb-osgi:$jaxbOsgiVersion"
 }
 
 test {
