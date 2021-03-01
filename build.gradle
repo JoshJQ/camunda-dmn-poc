@@ -138,5 +138,6 @@ task printVersion {
         // any code that goes here is part of executing the task
         // this code will only get run if and when the task gets executed
         println project.version
+        println project.version.getClass()
     }
 }
