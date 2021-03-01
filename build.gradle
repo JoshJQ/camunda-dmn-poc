@@ -23,8 +23,8 @@ bootJar {
         )
     }
 }
-/*
-testSourceSets {
+
+/*testSourceSets {
     test
     integration
     e2e
@@ -54,8 +54,8 @@ task cucumber() {
                     '--glue', 'com.db.camunda.e2e.steps', 'src/e2e/resources']
         }
     }
-}
-*/
+}*/
+
 spotless {
     format 'misc', {
         target '*.gradle', '.gitignore'
