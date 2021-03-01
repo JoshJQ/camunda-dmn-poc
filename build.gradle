@@ -94,7 +94,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-integrationTest {
-    useJUnitPlatform()
-}
