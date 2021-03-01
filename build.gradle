@@ -5,7 +5,6 @@ plugins {
     id 'nebula.release' version '15.3.1'
     id 'com.diffplug.spotless' version '5.10.2'
     id 'name.remal.sonarlint' version '1.2.2'
-    id 'name.remal.test-source-sets' version '1.1.6'
 }
 
 group 'com.db'
