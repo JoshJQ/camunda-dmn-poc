@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
-    id 'nebula.release' version '15.2.0'
+    id 'nebula.release' version '15.3.1'
     id 'com.diffplug.spotless' version '5.10.2'
     id 'name.remal.sonarlint' version '1.2.2'
     id 'name.remal.test-source-sets' version '1.1.6'
