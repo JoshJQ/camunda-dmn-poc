@@ -25,38 +25,6 @@ bootJar {
     }
 }
 
-testSourceSets {
-    test
-    integration
-    e2e
-}
-
-configurations {
-    integrationImplementation.extendsFrom testImplementation
-    integrationRuntime.extendsFrom testRuntime
-    cucumberRuntime {
-        extendsFrom testImplementation
-    }
-}
-
-task integrationTest(type: Test) {
-    testClassesDirs = sourceSets.integration.output.classesDirs
-    classpath = sourceSets.integration.runtimeClasspath
-}
-
-check.dependsOn integrationTest
-
-task cucumber() {
-    doLast {
-        javaexec {
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.e2e.output
-            args = ['--plugin', 'pretty', '--plugin', 'de.monochromata.cucumber.report.PrettyReports:build/test-results/',
-                    '--glue', 'com.db.camunda.e2e.steps', 'src/e2e/resources']
-        }
-    }
-}
-
 sonarlint {
     excludes {
         message 'java:S5960'
