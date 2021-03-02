@@ -4,7 +4,6 @@ plugins {
     id 'java'
     id 'nebula.release' version '15.3.1'
     id 'com.diffplug.spotless' version '5.10.2'
-    //id 'name.remal.test-source-sets' version '1.1.6'
 }
 
 group 'com.db'
@@ -24,15 +23,26 @@ bootJar {
     }
 }
 
-/*testSourceSets {
-    test
-    integration
-    e2e
+sourceSets {
+    integration {
+        java.srcDir "$projectDir/src/integration/java"
+        resources.srcDir "$projectDir/src/integration/resources"
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+    e2e {
+        java.srcDir "$projectDir/src/e2e/java"
+        resources.srcDir "$projectDir/src/e2e/resources"
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
 }
 
 configurations {
     integrationImplementation.extendsFrom testImplementation
     integrationRuntime.extendsFrom testRuntime
+    e2eImplementation.extendsFrom testImplementation
+    e2eRuntime.extendsFrom testRuntime
     cucumberRuntime {
         extendsFrom testImplementation
     }
@@ -54,7 +64,7 @@ task cucumber() {
                     '--glue', 'com.db.camunda.e2e.steps', 'src/e2e/resources']
         }
     }
-}*/
+}
 
 spotless {
     format 'misc', {
@@ -119,6 +129,6 @@ test {
     useJUnitPlatform()
 }
 
-/*integrationTest {
+integrationTest {
     useJUnitPlatform()
-}*/
+}
