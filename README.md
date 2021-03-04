@@ -7,6 +7,8 @@ This is a proof of concept project as a preparation for the coming project. It i
 
 Tech stack:
 - Gradle
+    - nebula release plugin to manage the semantic version
+    - spotless plugin to format the codes
 - Spring Boot 2
 - Spring JPA
 - Lombok
