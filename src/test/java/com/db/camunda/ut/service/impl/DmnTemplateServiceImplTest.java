@@ -1,10 +1,11 @@
-package com.db.camunda.service.impl;
+package com.db.camunda.ut.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.db.camunda.common.Constants;
 import com.db.camunda.entity.DmnTemplate;
 import com.db.camunda.repository.DmnTemplateRepository;
+import com.db.camunda.service.impl.DmnTemplateServiceImpl;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Optional;

@@ -1,7 +1,8 @@
-package com.db.camunda.controller;
+package com.db.camunda.ut.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.db.camunda.controller.AdminController;
 import com.db.camunda.entity.DmnTemplate;
 import com.db.camunda.service.DmnTemplateService;
 import java.io.IOException;
